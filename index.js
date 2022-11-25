@@ -7,18 +7,37 @@ function getComputerChoice() {
     return handof[randomNum];
 }
 
-function playRound(playerSelection, computerSelection) {
-    if(playerSelection == computerSelection){
-        return 'Draw'
-    }
-    else if(playerSelection && computerSelection == 'PAPER'){
-        computer++
-        return "You Lose! Paper beats Rock";
-    }
-    else{
-        player++
-        return "You Win! Rock beats Scissors";
-    }
+function playRound(button) {
+  player == 5 || computer == 5 ? gameOn = false : gameOn = true;
+  if(gameOn == false) return;
+
+  const playerSelection = button.innerText;
+  const computerSelection = getComputerChoice();
+  player == 5 || computer == 5 ? gameOn = false : gameOn = true;
+  console.log(gameOn);
+  /*switch(gameOn){
+
+  }*/
+
+  if (playerSelection == computerSelection) {
+    roundOutcome.innerHTML = "Draw!";
+  } else if (playerSelection == "ROCK" && computerSelection == "PAPER") {
+    computer++;
+    cpuScore.innerText = computer;
+    roundOutcome.innerHTML = `Lost Round! ${computerSelection} beats ${playerSelection}`;
+  } else if (playerSelection == "PAPER" && computerSelection == "SCISSORS") {
+    computer++;
+    cpuScore.innerText = computer;
+    roundOutcome.innerHTML = `Lost Round! ${computerSelection} beats ${playerSelection}`;
+  } else if (playerSelection == "SCISSORS" && computerSelection == "ROCK") {
+    computer++;
+    cpuScore.innerText = computer;
+    roundOutcome.innerHTML = `Lost Round! ${computerSelection} beats ${playerSelection}`;
+  } else {
+    player++;
+    playerScore.innerText = player;
+    roundOutcome.innerHTML = `Won Round! ${playerSelection} beats ${computerSelection}`;
+  }
 }
 
     const game = ()=>{

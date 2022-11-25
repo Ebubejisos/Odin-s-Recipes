@@ -7,7 +7,17 @@
     <title>Console Rock_Paper_Scissors</title>
 </head>
 <body>
-    
+    <button id="rock" onclick="playRound(rock)">ROCK</button>
+    <button id="paper" onclick="playRound(paper)">PAPER</button>
+    <button id="scissors" onclick="playRound(scissors)">SCISSORS</button>
+
+    <div id="count">
+        <h3 id="roundOutcome"></h3>
+        <h1>Player <span id="playerScore">0</span> : <span id="cpuScore">0</span> Computer
+        </h1>
+        <p id="gameResult"></p>
+    </div>
+
     <script src="index.js"></script>
 </body>
 </html>
