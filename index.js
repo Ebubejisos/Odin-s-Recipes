@@ -1,63 +1,72 @@
 let player = 0;
 let computer = 0;
+let gameOn = true;
+
+const handof = ["ROCK", "PAPER", "SCISSORS"];
+const rock = document.getElementById("rock");
+const paper = document.getElementById("paper");
+const scissors = document.getElementById("scissors");
+let playerScore = document.getElementById("playerScore");
+let cpuScore = document.getElementById("cpuScore");
+const roundOutcome = document.getElementById("roundOutcome");
+const gameResult = document.getElementById("gameResult");
 
 function getComputerChoice() {
-    const handof = ['ROCK','PAPER','SCISSORS'];
-    const randomNum = Math.floor(Math.random() * 3);
-    return handof[randomNum];
+  const randomNum = Math.floor(Math.random() * 3);
+  return handof[randomNum];
 }
 
 function playRound(button) {
   player == 5 || computer == 5 ? gameOn = false : gameOn = true;
-  if(gameOn == false) return;
+  if(gameOn == false) {
+    return;
+  }
 
   const playerSelection = button.innerText;
   const computerSelection = getComputerChoice();
-  player == 5 || computer == 5 ? gameOn = false : gameOn = true;
-  console.log(gameOn);
-  /*switch(gameOn){
-
-  }*/
-
-  if (playerSelection == computerSelection) {
-    roundOutcome.innerHTML = "Draw!";
-  } else if (playerSelection == "ROCK" && computerSelection == "PAPER") {
-    computer++;
-    cpuScore.innerText = computer;
-    roundOutcome.innerHTML = `Lost Round! ${computerSelection} beats ${playerSelection}`;
-  } else if (playerSelection == "PAPER" && computerSelection == "SCISSORS") {
-    computer++;
-    cpuScore.innerText = computer;
-    roundOutcome.innerHTML = `Lost Round! ${computerSelection} beats ${playerSelection}`;
-  } else if (playerSelection == "SCISSORS" && computerSelection == "ROCK") {
-    computer++;
-    cpuScore.innerText = computer;
-    roundOutcome.innerHTML = `Lost Round! ${computerSelection} beats ${playerSelection}`;
-  } else {
+  
+  const playerWins = ()=> {
     player++;
     playerScore.innerText = player;
     roundOutcome.innerHTML = `Won Round! ${playerSelection} beats ${computerSelection}`;
   }
+  
+  const playerLoses = ()=> {
+    computer++;
+    cpuScore.innerText = computer;
+    roundOutcome.innerHTML = `Lost Round! ${computerSelection} beats ${playerSelection}`;
+  }
+  
+  switch(gameOn){
+    case playerSelection == computerSelection:
+      roundOutcome.innerHTML = "Draw!";
+      break;
+    case playerSelection == 'ROCK' && computerSelection == 'PAPER':
+      playerLoses();
+      break;
+    case playerSelection == "PAPER" && computerSelection == "SCISSORS":
+      playerLoses();
+      break;
+    case playerSelection == "SCISSORS" && computerSelection == "ROCK":
+      playerLoses();
+          break;
+    case playerSelection == "ROCK" && computerSelection == "SCISSORS":
+          playerWins();
+          break;
+    case playerSelection == "PAPER" && computerSelection == "ROCK":
+          playerWins();
+          break;
+    case playerSelection == "SCISSORS" && computerSelection == "PAPER":
+          playerWins();
+    default:break;
+  }
+  if(player > 4 || computer > 4){
+    winnerText();
+  }
 }
 
-    const game = ()=>{
-        for(let i = 0; i < 5; i++){
-            const computerSelection = getComputerChoice();
-            console.log(playRound(playerSelection, computerSelection)); 
-        }
-        console.log(`Player ${player} : ${computer} Computer`);
-        if(player > computer){
-            console.log("You Win!");
-        }
-        else if(player == computer){
-            console.log("It's a tie!")
-        }
-        else{
-            console.log("You Lost!")
-        }
-    }
-    
-    let playerSelection = window.prompt('input hand');
-    playerSelection = playerSelection.toUpperCase();
-    
-    game();
+const winnerText = ()=>{
+  player > computer
+    ? (gameResult.innerHTML = "Congratulations! You won the game")
+    : (gameResult.innerHTML = "Oops! You lost this time");
+}
